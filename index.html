@@ -2339,6 +2339,16 @@ h1,h2,h3,h4{font-weight:600;line-height:1.2;letter-spacing:-.012em;}
           <form id="form-query" class="ws-form is-hidden" onsubmit="submitForm(event,'query')">
             <div class="frow">
               <div class="field">
+                <label>Enter Your Name <span class="req">*</span></label>
+                <input type="text" placeholder="Enter Name" required />
+              </div>
+              <div class="field">
+                <label>Enter Mobile Number <span class="req">*</span></label>
+                <input type="tel" placeholder="Enter Number" maxlength="10" required />
+              </div>
+            </div>
+            <div class="frow">
+              <div class="field">
                 <label>Topic <span class="req">*</span></label>
                 <select required>
                   <option value="">Select a topic</option>
