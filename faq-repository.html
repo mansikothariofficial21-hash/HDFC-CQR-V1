@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HDFC Bank · FAQ Repository</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
+<style>
+/* ============ DESIGN SYSTEM (mirrors support ecosystem) ============ */
+:root{
+  --navy:#292b2e;
+  --navy-deep:#1c1d1f;
+  --navy-soft:#3c3e42;
+  --indigo:#3c3e42;
+  --blue:#5d6065;
+  --blue-tint:#ebebec;
+  --cream:#ecebe9;
+  --cream-deep:#e2e1de;
+  --surface:#f4f4f3;
+  --offwhite:#efefee;
+  --paper:#ffffff;
+  --grey-50:#f1f1f0;
+  --border:#dadad7;
+  --border-soft:#e7e7e5;
+  --text:#1d1e20;
+  --text-mid:#454749;
+  --text-soft:#646669;
+  --text-faint:#83858a;
+  --red:#222427;
+  --red-deep:#0f1011;
+  --red-muted:#6b5050;
+  --red-tint:#efebeb;
+  --green:#5e6b62;
+  --green-tint:#e9ece9;
+  --amber:#70655a;
+  --amber-tint:#eeebe6;
+  --info:#5d6065;
+  --info-tint:#ededee;
+  --shadow-xs:0 1px 2px rgba(20,20,22,.05);
+  --shadow-sm:0 2px 8px rgba(20,20,22,.07);
+  --shadow-md:0 8px 28px rgba(20,20,22,.11);
+  --shadow-lg:0 22px 60px rgba(20,20,22,.22);
+  --r-sm:8px; --r-md:14px; --r-lg:20px; --r-xl:28px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:auto;}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
+body{
+  font-family:var(--sans);background:var(--surface);color:var(--text);
+  font-size:14.5px;line-height:1.5;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+input{font-family:inherit;font-size:14px;color:var(--text);}
+.wrap{max-width:1100px;margin:0 auto;padding:0 32px;}
+
+/* ===== HEADER (matches landing page exactly) ===== */
+.header{
+  position:sticky;top:0;z-index:120;
+  background:var(--paper);
+  border-bottom:1px solid var(--border-soft);
+  box-shadow:var(--shadow-xs);
+}
+.hdr-top{background:var(--navy);color:rgba(255,255,255,.82);font-size:12px;border-bottom:1px solid rgba(255,255,255,.08);}
+.hdr-top-in{max-width:1180px;margin:0 auto;padding:0 32px;height:44px;display:flex;align-items:center;gap:0;}
+.hdr-top-center{flex:1;display:flex;justify-content:center;}
+.hdr-banking-pill{
+  display:flex;align-items:center;gap:6px;
+  border:1px solid rgba(255,255,255,.25);border-radius:20px;
+  padding:4px 14px 4px 12px;font-size:12px;font-weight:500;color:#fff;cursor:pointer;transition:.15s;
+}
+.hdr-banking-pill:hover{background:rgba(255,255,255,.1);}
+.hdr-banking-pill svg{opacity:.7;}
+.hdr-top-right{display:flex;align-items:center;gap:4px;}
+.hdr-top-link{
+  display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;
+  font-size:12px;font-weight:500;color:rgba(255,255,255,.82);cursor:pointer;transition:.15s;
+}
+.hdr-top-link:hover{background:rgba(255,255,255,.1);color:#fff;}
+.hdr-top-divider{width:1px;height:14px;background:rgba(255,255,255,.2);margin:0 2px;}
+.hdr-top-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:6px;cursor:pointer;transition:.15s;color:rgba(255,255,255,.75);}
+.hdr-top-icon:hover{background:rgba(255,255,255,.1);color:#fff;}
+.header-in{max-width:1180px;margin:0 auto;padding:0 32px;height:56px;display:flex;align-items:center;gap:0;}
+.hdr-nav{display:flex;align-items:stretch;height:100%;margin:0 auto;}
+.hdr-nav-link{
+  display:flex;align-items:center;gap:5px;padding:0 15px;font-size:13.5px;font-weight:500;
+  color:var(--text-mid);cursor:pointer;transition:.15s;border-bottom:2.5px solid transparent;white-space:nowrap;position:relative;
+}
+.hdr-nav-link:hover{color:var(--navy);}
+.hdr-nav-link.active{color:var(--navy);font-weight:600;border-bottom-color:var(--navy);}
+.hdr-nav-link svg{opacity:.55;flex-shrink:0;}
+.hdr-nav-link.active svg{opacity:.75;}
+.hdr-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.hdr-search{
+  display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;
+  background:var(--grey-50);border:1px solid var(--border);border-radius:20px;
+  color:var(--text-soft);font-size:12.5px;transition:.18s var(--ease);cursor:text;min-width:170px;
+}
+.hdr-search:hover{border-color:#cfcfcc;background:var(--paper);}
+.hdr-eva{display:flex;align-items:center;gap:5px;}
+.hdr-eva-badge{width:22px;height:22px;border-radius:50%;background:var(--navy);display:grid;place-items:center;flex-shrink:0;}
+.hdr-eva-badge svg{color:#fff;}
+.hdr-search input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-size:12.5px;color:var(--text);}
+.hdr-search input::placeholder{color:var(--text-soft);}
+.btn-login{
+  height:36px;padding:0 16px;border-radius:20px;
+  background:var(--navy);color:#fff;font-size:13px;font-weight:600;
+  transition:.18s var(--ease);display:flex;align-items:center;gap:5px;
+}
+.btn-login:hover{background:var(--navy-deep);}
+.btn-login svg{opacity:.75;}
+.breadcrumb{background:var(--grey-50);border-bottom:1px solid var(--border-soft);padding:9px 0;}
+.breadcrumb-in{
+  max-width:1180px;margin:0 auto;padding:0 32px;
+  display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-soft);
+}
+.breadcrumb-in a{color:var(--text-soft);display:flex;align-items:center;gap:5px;transition:.13s;text-decoration:none;}
+.breadcrumb-in a:hover{color:var(--navy);}
+.breadcrumb-in .bc-sep{opacity:.45;font-size:10px;}
+.breadcrumb-in .bc-cur{color:var(--navy);font-weight:500;}
+
+/* ============ HERO ============ */
+.eyebrow{
+  font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--text-faint);display:flex;align-items:center;gap:9px;margin-bottom:12px;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--border);}
+.repo-hero{padding:48px 0 28px;}
+.repo-hero h1{
+  font-size:32px;font-weight:600;line-height:1.18;letter-spacing:-.013em;
+  margin-bottom:10px;max-width:740px;
+}
+.repo-hero p{
+  font-size:14.5px;color:var(--text-mid);line-height:1.6;max-width:640px;
+}
+
+/* searchable repository ======================================= */
+.repo-search{
+  margin-top:24px;background:var(--paper);
+  border:1px solid var(--border);border-radius:var(--r-md);
+  box-shadow:var(--shadow-xs);
+  display:flex;align-items:center;gap:12px;
+  padding:6px 6px 6px 18px;height:54px;
+}
+.repo-search svg{color:var(--text-soft);flex-shrink:0;}
+.repo-search input{
+  flex:1;border:none;outline:none;background:transparent;
+  font-size:14.5px;height:100%;color:var(--text);
+}
+.repo-search input::placeholder{color:var(--text-faint);}
+.repo-search .rs-count{
+  font-size:11px;font-weight:600;color:var(--text-faint);
+  padding:0 14px;letter-spacing:.04em;
+}
+
+/* category navigator ======================================= */
+.repo-cats{
+  display:flex;flex-wrap:wrap;gap:7px;margin-top:18px;
+}
+.repo-cat{
+  font-size:12px;font-weight:500;color:var(--text-mid);
+  padding:8px 14px;border-radius:99px;
+  background:var(--paper);border:1px solid var(--border-soft);
+  transition:.15s var(--ease);
+}
+.repo-cat:hover{background:var(--grey-50);color:var(--navy);border-color:var(--border);}
+.repo-cat.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+/* layout ======================================= */
+.repo-grid{
+  display:grid;grid-template-columns:240px 1fr;gap:36px;
+  margin:36px 0 64px;align-items:start;
+}
+.repo-side{
+  position:sticky;top:150px;display:flex;flex-direction:column;gap:2px;
+  background:var(--paper);border:1px solid var(--border-soft);border-radius:var(--r-md);
+  padding:10px;
+}
+.repo-side b{
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);
+  font-weight:700;padding:8px 10px 6px;
+}
+.repo-side a{
+  display:flex;align-items:center;justify-content:space-between;gap:6px;
+  padding:9px 10px;border-radius:8px;font-size:13px;color:var(--text-mid);
+  font-weight:500;transition:.14s var(--ease);
+}
+.repo-side a:hover{background:var(--grey-50);color:var(--navy);}
+.repo-side a.active{background:var(--cream-deep);color:var(--navy);font-weight:600;}
+.repo-side a .count{
+  font-size:10.5px;font-weight:600;color:var(--text-faint);
+  background:var(--grey-50);border-radius:6px;padding:1px 6px;
+}
+.repo-side a.active .count{background:var(--paper);color:var(--navy-soft);}
+
+/* category block ======================================= */
+.cat-block{margin-bottom:38px;}
+.cat-block h2{
+  font-family:var(--sans);font-size:18px;font-weight:600;
+  letter-spacing:-.01em;color:var(--text);
+  display:flex;align-items:center;gap:12px;margin-bottom:6px;
+}
+.cat-block h2 .cat-num{
+  font-size:10.5px;color:var(--text-faint);font-weight:600;
+  background:var(--grey-50);border-radius:6px;padding:3px 8px;
+}
+.cat-block p.cat-desc{
+  font-size:13px;color:var(--text-soft);line-height:1.55;
+  margin-bottom:16px;max-width:560px;
+}
+
+.faq-item{
+  background:var(--paper);border:1px solid var(--border-soft);
+  border-radius:var(--r-md);margin-bottom:8px;overflow:hidden;
+  transition:.18s var(--ease);
+}
+.faq-item.open{border-color:var(--border);box-shadow:var(--shadow-sm);}
+.faq-q{
+  display:flex;align-items:center;gap:13px;padding:14px 18px;cursor:pointer;
+  transition:background .15s;
+}
+.faq-q:hover{background:var(--grey-50);}
+.faq-q b{font-size:13.5px;font-weight:500;color:var(--text);flex:1;line-height:1.45;}
+.faq-q .fq-chev{color:var(--text-faint);transition:transform .25s var(--ease);flex-shrink:0;}
+.faq-item.open .fq-chev{transform:rotate(180deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s var(--ease);}
+.faq-a-in{padding:0 18px 17px 18px;font-size:13px;color:var(--text-mid);line-height:1.65;}
+
+.no-results{
+  padding:46px 20px;text-align:center;color:var(--text-soft);
+  background:var(--paper);border:1px dashed var(--border);border-radius:var(--r-md);
+}
+.no-results b{display:block;color:var(--text);font-weight:600;margin-bottom:6px;font-size:14px;}
+.no-results span{font-size:12.5px;}
+
+/* return-to-support strip ======================================= */
+.repo-return{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 18px;border-radius:var(--r-md);
+  background:var(--navy);color:#fff;margin:0 0 40px;
+}
+.repo-return svg{color:rgba(255,255,255,.55);flex-shrink:0;}
+.repo-return b{font-size:13.5px;font-weight:600;}
+.repo-return span{font-size:12px;color:rgba(255,255,255,.6);flex:1;}
+.repo-return a{
+  font-size:12px;font-weight:600;padding:7px 13px;border-radius:8px;
+  background:rgba(255,255,255,.1);transition:.15s;
+}
+.repo-return a:hover{background:rgba(255,255,255,.18);}
+
+/* ===== FOOTER (matches landing page exactly) ===== */
+.footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:48px 0 26px;}
+.foot-reach-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1.5px solid rgba(255,255,255,.4);border-radius:9px;
+  padding:10px 28px;font-size:14px;font-weight:600;color:#fff;
+  text-decoration:none;transition:.15s;cursor:pointer;background:transparent;
+}
+.foot-reach-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7);}
+.foot-new-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;}
+.foot-col-new h5{font-size:13px;font-weight:700;color:#fff;margin-bottom:14px;padding-bottom:0;border:none;}
+.foot-col-new a{display:block;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:10px;cursor:pointer;line-height:1.4;text-decoration:none;transition:.13s;}
+.foot-col-new a:hover{color:#fff;}
+.foot-products-row{display:flex;align-items:flex-start;gap:18px;}
+.fpr-label{font-size:12px;font-weight:700;color:#fff;white-space:nowrap;min-width:140px;padding-top:1px;}
+.fpr-links{font-size:11.5px;color:rgba(255,255,255,.55);line-height:1.7;}
+.foot-bottom-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1.5px solid rgba(255,255,255,.3);border-radius:8px;
+  padding:9px 16px;font-size:13px;font-weight:600;color:rgba(255,255,255,.8);
+  background:transparent;cursor:pointer;transition:.15s;
+}
+.foot-bottom-pill:hover{border-color:rgba(255,255,255,.6);color:#fff;}
+
+@media(max-width:920px){
+  .repo-grid{grid-template-columns:1fr;}
+  .repo-side{position:static;flex-direction:row;flex-wrap:wrap;}
+  .repo-side b{display:none;}
+  .repo-side a{flex:1 1 calc(50% - 4px);}
+}
+@media(max-width:560px){
+  .wrap{padding:0 18px;}
+  .header-in{padding:0 18px;}
+  .repo-hero h1{font-size:25px;}
+  .foot-in{padding:0 18px;}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <!-- Top utility bar -->
+  <div class="hdr-top">
+    <div class="hdr-top-in">
+      <a href="hdfc-complaint-ecosystem2.html" style="display:flex;align-items:center;flex-shrink:0;text-decoration:none;">
+        <svg width="110" height="28" viewBox="0 0 220 56" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="218" height="54" rx="3" ry="3" fill="none" stroke="#fff" stroke-width="2"/>
+          <rect x="8" y="8" width="40" height="40" rx="2" fill="#e31837"/>
+          <rect x="11" y="11" width="34" height="34" rx="1" fill="none" stroke="#fff" stroke-width="5"/>
+          <rect x="20" y="20" width="16" height="16" rx="1" fill="#fff"/>
+          <rect x="24" y="24" width="8" height="8" fill="#e31837"/>
+          <text x="56" y="38" font-family="Arial, sans-serif" font-size="22" font-weight="900" fill="#fff" letter-spacing="1">HDFC BANK</text>
+        </svg>
+      </a>
+      <div class="hdr-top-center">
+        <button class="hdr-banking-pill">
+          You are in Personal Banking
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </div>
+      <div class="hdr-top-right">
+        <button class="hdr-top-link">
+          About Us
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="hdr-top-divider"></div>
+        <button class="hdr-top-icon" title="Accessibility">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="2"/><path d="M8 12h8M10 12v5M14 12v5"/></svg>
+        </button>
+        <button class="hdr-top-icon" title="Notifications">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/><circle cx="18" cy="5" r="3" fill="#e31837" stroke="none"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Main nav bar -->
+  <div class="header-in">
+    <nav class="hdr-nav">
+      <button class="hdr-nav-link">
+        Discover Products
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <button class="hdr-nav-link active">
+        Need Help
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <button class="hdr-nav-link">Better Money Choices®</button>
+      <button class="hdr-nav-link">
+        Offers
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </nav>
+    <div class="hdr-right">
+      <div class="hdr-search">
+        <div class="hdr-eva">
+          <div class="hdr-eva-badge">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4z"/><path d="M5 21a7 7 0 0 1 14 0"/></svg>
+          </div>
+          <span style="font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--text-faint);">ASK EVA</span>
+        </div>
+        <input type="text" autocomplete="off" placeholder="Search…" />
+      </div>
+      <button class="btn-login">
+        LOGIN
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <div class="breadcrumb-in">
+      <a href="hdfc-complaint-ecosystem2.html">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </a>
+      <span class="bc-sep">›</span>
+      <a href="#">Need Help</a>
+      <span class="bc-sep">›</span>
+      <a href="hdfc-complaint-ecosystem2.html">Complaint/Query/Request</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-cur">FAQs</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="repo-hero">
+  <div class="wrap">
+    <div class="eyebrow">FAQ Repository</div>
+    <h1>Every support question, in one calm place.</h1>
+    <p>Categorised, searchable and written in plain banking language. Use search if you know what you are looking for, or browse a category to scan what is most relevant.</p>
+
+    <div class="repo-search">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="repoSearch" type="text" autocomplete="off"
+        placeholder='Search the repository — e.g. "card not delivered", "complaint not resolved", "transaction pending"' />
+      <span class="rs-count" id="rsCount"></span>
+    </div>
+
+    <div class="repo-cats" id="repoCats"></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="repo-grid">
+    <aside class="repo-side" id="repoSide"></aside>
+    <div class="repo-main" id="repoMain"></div>
+  </div>
+
+  <div class="repo-return">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <div style="display:flex;flex-direction:column;gap:2px;flex:1;">
+      <b>Still need help?</b>
+      <span>The support page handles complaints, tracking and escalation. The assistant can guide a recommendation.</span>
+    </div>
+    <a href="hdfc-complaint-ecosystem2.html#workspace">Raise a complaint</a>
+    <a href="hdfc-complaint-ecosystem2.html#channels">Contact channels</a>
+  </div>
+</section>
+</main>
+
+<footer class="footer" style="padding:0;">
+
+  <!-- Reach us bar -->
+  <div style="text-align:center;padding:40px 32px 32px;border-bottom:1px solid rgba(255,255,255,.1);">
+    <h2 style="font-size:24px;font-weight:700;color:#fff;margin-bottom:22px;">Here's how to reach us</h2>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="tel:18002586161" class="foot-reach-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.67A2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call
+      </a>
+      <a href="https://wa.me/918001600110" target="_blank" class="foot-reach-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.2-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg>
+        Chat
+      </a>
+      <a href="#" class="foot-reach-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Locate
+      </a>
+    </div>
+  </div>
+
+  <!-- 5-column link grid -->
+  <div class="wrap" style="padding-top:36px;padding-bottom:36px;">
+    <div class="foot-new-grid">
+      <div class="foot-col-new">
+        <h5>About Us</h5>
+        <a>Overview</a><a>Investor Relations</a><a>Careers</a>
+        <a>Other Stakeholders' Information</a><a>News Room</a>
+        <a>Corporate Governance</a><a>ESG</a><a>CSR</a>
+        <a onclick="window.open('https://smartodr.in','_blank')">Online Dispute Resolution Portal</a>
+        <a>Regulatory Disclosures</a><a>Our Corporate commitment</a>
+        <a>Erstwhile HDFC Limited T&amp;C</a>
+      </div>
+      <div class="foot-col-new">
+        <h5>Useful Links</h5>
+        <a>Quick Links</a><a>New Issuance</a>
+        <a>List of third parties engaged by Bank</a><a>Security</a>
+        <a>US Patriot Act Certificate</a><a>Important Messages</a><a>RBI Kehta Hai</a>
+        <a onclick="window.open('https://udgam.rbi.org.in','_blank')">RBI UDGAM-Unclaimed Deposit</a>
+        <a onclick="window.open('https://cms.rbi.org.in','_blank')">RBI Complaint Management System</a>
+        <a>RBI Sachet Portal</a><a>1+1 Credit Card Application</a>
+      </div>
+      <div class="foot-col-new">
+        <h5>Resources</h5>
+        <a>Fees &amp; Charges</a><a>Customer Services</a><a>Bank Holiday List</a>
+        <a>Online Services</a><a>Notice Board</a><a>Interest Rates</a>
+        <a>Forex Rates</a><a>Ways To Bank</a><a>Better Money Choices</a>
+        <a>Auction Notices</a><a>Forms Centre</a>
+      </div>
+      <div class="foot-col-new">
+        <h5>Contact Us &amp; Need Help</h5>
+        <a href="hdfc-complaint-ecosystem2.html">Lodge a Complaint/Query/Request</a>
+        <a href="faq-repository.html">FAQs</a>
+        <a href="tel:18002586161">Customer Care</a>
+        <a>Active Channel Partners</a><a>Consent to Call Registration</a>
+        <a>Do-Not-Call-Registration</a>
+        <a href="https://wa.me/918001600110" target="_blank">WhatsApp Banking</a>
+      </div>
+      <div class="foot-col-new">
+        <h5>Others</h5>
+        <a>Citizen's Charter</a><a>Wolfsberg AML Questionnaire</a>
+        <a>Grievance Redressal Digital</a><a>Grievance Redressal Officer</a>
+        <a>Use Of Unparliamentary Language By Customers</a>
+        <a>DNC Dedupe</a><a>Digital Lending-Important Links</a>
+        <a>Equal Opportunity Policy</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core Products & Finance Calculators -->
+  <div class="wrap" style="padding-bottom:28px;border-top:1px solid rgba(255,255,255,.08);padding-top:22px;">
+    <div class="foot-products-row">
+      <span class="fpr-label">Core Products</span>
+      <span class="fpr-links">Personal Loan | Car Loan | Business Loan | Two Wheeler Loan | Gold Loan | Home Loan | Pre-Verified Properties | Savings Account | Salary Account | Current Account | Demat Account | Credit Card | Debit Card | Forex Card | PayZapp | FASTag | Fixed Deposit | MSME Loan</span>
+    </div>
+    <div class="foot-products-row" style="margin-top:14px;">
+      <span class="fpr-label">Finance Calculators</span>
+      <span class="fpr-links">EMI Calculator | Personal Loan EMI Calculator | Car Loan EMI Calculator | Two Wheeler EMI Calculator | Business Loan EMI Calculator | Gold Loan EMI Calculator | Home Loan Calculator | Loan Against Property Calculator | AMB Calculator | Credit Card EMI Calculator | SSY Calculator | PPF Calculator | SIP Calculator | Fixed Deposit Calculator | Recurring Deposit Calculator | Car Loan BT-Top-Up Calculator</span>
+    </div>
+    <div style="text-align:center;margin-top:18px;">
+      <button style="background:transparent;border:none;color:rgba(255,255,255,.7);font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;">
+        View More
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="wrap" style="border-top:1px solid rgba(255,255,255,.08);padding:18px 0;display:flex;gap:14px;flex-wrap:wrap;">
+    <button class="foot-bottom-pill">
+      HDFC Group Websites
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <button class="foot-bottom-pill">
+      HDFC Bank Offshore Branches
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+  </div>
+
+</footer>
+
+<script>
+/* ========= CATEGORY DATA =========
+   Each category has a short description (so the page does not feel like
+   institutional dumping) and a list of support-first questions written
+   in real customer phrasing. */
+const REPO=[
+  {id:'complaint',title:'Complaint & Resolution',
+   desc:'How complaints are raised, acknowledged, routed and resolved. What happens after submission and how outcomes are decided.',
+   items:[
+     {q:'What happens after I submit a complaint?',
+      a:'You receive a reference number straight away, followed by a formal acknowledgement within 4 hours. The complaint is routed to the specialist desk that handles your issue type. It moves through five tracked stages and is resolved within the expected time. You are notified at every stage.'},
+     {q:'Can I reopen a closed complaint?',
+      a:'Yes. If a closed complaint was not fully resolved, you can reopen it from the tracking view within a reasonable window. The original reference number, history and documents stay intact. Nothing restarts from scratch.'},
+     {q:'How is a complaint different from a query or a service request?',
+      a:'A complaint is an issue that needs investigation. It comes with a tracked reference number. A query is a question, usually answered without raising a ticket. A service request is a standard banking task, like a cheque book or a KYC update, that is processed rather than investigated.'},
+     {q:'Will I get an email confirmation when I submit a complaint?',
+      a:'Yes. An acknowledgement email is sent to your registered email address with your reference number, the assigned desk and the expected resolution time. An SMS alert is sent in parallel for quick visibility.'},
+     {q:'Can someone else raise a complaint on my behalf?',
+      a:'Yes, but only with a signed authorisation and basic identity verification. For sensitive matters like fraud or disputes, the bank will usually confirm with the registered customer before acting.'}
+   ]},
+  {id:'tracking',title:'Tracking & Status',
+   desc:'How to find where your case is, what each stage means, and why a status may stay in place longer than expected.',
+   items:[
+     {q:'How do I track a complaint and what do the stages mean?',
+      a:'Enter your reference number in Track a Request and verify with an OTP. A complaint moves through five stages: Submitted, Sent to the team, Being checked, Resolution shared, and Closed. Each stage shows a timestamp and the team handling it.'},
+     {q:'Why is my complaint still under review?',
+      a:'A case stays in "Being checked" while the team verifies details and acts. The timestamp shows how long the stage has been active. If the expected resolution time has passed, the next level of further grievance support opens automatically — you do not have to chase it.'},
+     {q:'Why is my transaction still pending?',
+      a:'Most pending payments settle or auto-reverse within 48 hours. The amount, if debited, is held until the status is final. It is not lost. If it has not moved after 48 hours, a tracked dispute is the next step.'},
+     {q:'Can I track a service request the same way as a complaint?',
+      a:'Yes. Service requests also have reference numbers and a status track. The stages differ — service requests are processed by operations rather than investigated — but the lookup works the same.'},
+     {q:'Where do I see the team handling my case?',
+      a:'The expanded tracking view shows the assigned desk, the current stage and the most recent update. If a case has been routed across desks, the trail is visible there.'}
+   ]},
+  {id:'escalation',title:'Escalation & Timelines',
+   desc:'How further grievance support works, when each level opens, and the expected timeline at every stage.',
+   items:[
+     {q:'When can I escalate a complaint?',
+      a:'Each level of further grievance support opens after its expected resolution time passes. Level 2 (Grievance Officer) opens after about 5 working days at Level 1. Level 3 (Principal Nodal Officer) after about 10. The RBI Ombudsman becomes eligible after 30 days or once you receive a final reply.'},
+     {q:'How does further grievance support work?',
+      a:'There are four levels: Customer Care, Grievance Redressal Officer, Principal Nodal Officer, and the RBI Ombudsman. Each opens after its expected resolution time, one step at a time. The path is informational and never used against you.'},
+     {q:'Does escalating slow my case down?',
+      a:'No. The next level carries the full history forward. It exists to give you a clear path, not to reset the clock or count against you.'},
+     {q:'When can I approach the RBI Ombudsman?',
+      a:'You can approach the RBI Ombudsman if your complaint is not resolved 30 days after being raised, or if you have received a final reply you are not satisfied with. It is an independent, free regulatory route under the Integrated Ombudsman Scheme.'},
+     {q:'What is the typical resolution time for a complaint?',
+      a:'Most complaints are acknowledged within 4 hours and resolved within 5 to 7 working days, depending on issue type. The expected resolution time is shown the moment a complaint is raised.'}
+   ]},
+  {id:'payments',title:'Payments & Transactions',
+   desc:'UPI, IMPS, NEFT, refunds and chargebacks. Why a transaction may be pending and what is normal vs what needs a dispute.',
+   items:[
+     {q:'Why is money debited but not received?',
+      a:'Failed transactions usually auto-reverse on their own within 3 to 5 working days. The amount, if debited, is held — not lost. If the time window has passed, raise a tracked dispute. It triggers an NPCI-tracked chargeback.'},
+     {q:'How long does a UPI dispute take to resolve?',
+      a:'UPI disputes follow NPCI timelines. Most settle within 5 working days once a chargeback is raised with the receiving bank. Failed transactions usually auto-reverse within 48 hours without a dispute.'},
+     {q:'My UPI payment is stuck on pending. What do I do?',
+      a:'Wait for the 48-hour settlement window before retrying. Note the UTR from the transaction history — you will need it if a dispute becomes necessary. Avoid sending the same payment again, which can create a duplicate.'},
+     {q:'The ATM did not dispense cash but my account was debited. What now?',
+      a:'Under RBI rules, the amount is auto-reversed within 5 working days, often sooner. Note the ATM ID, location, date and time. If the reversal does not appear, raise a complaint under "Failed or delayed transaction" with the ATM details.'},
+     {q:'When am I eligible for compensation on a delayed reversal?',
+      a:'RBI mandates compensation if a failed-transaction reversal is delayed beyond the prescribed window. The compensation is credited automatically along with the reversal. No separate request is needed.'}
+   ]},
+  {id:'cards',title:'Cards & Delivery',
+   desc:'Card issuance, delivery, replacement and what to do when a new card or PIN has not arrived.',
+   items:[
+     {q:'How long does card delivery usually take?',
+      a:'Cards are usually dispatched within 5 to 7 working days of request. Courier delivery typically takes 2 to 5 working days after dispatch, depending on location. A dispatch confirmation is sent to your registered email and mobile.'},
+     {q:'My new card has not arrived. What should I check?',
+      a:'Start by confirming the dispatch SMS or email. If the courier shows a failed attempt, reschedule with them or request a branch pickup. If the address on file is outdated, update it and request a re-issue. The old card stays blocked for safety.'},
+     {q:'Can I block a card instantly?',
+      a:'Yes. Block instantly via the app, NetBanking, phone banking or by visiting a branch. A blocked card stays frozen and a fraud case is opened for you automatically if needed.'},
+     {q:'When should I request a replacement card?',
+      a:'Request a replacement when a card is lost, damaged, near expiry, compromised, or shows misuse. Replacement cards usually arrive within standard delivery windows from approval.'},
+     {q:'How do I track the dispatch status of a card?',
+      a:'Open the app, go to Cards, then Track Card. A dispatch confirmation includes a courier tracking ID — you can also follow it directly on the courier site.'}
+   ]},
+  {id:'access',title:'Account Access',
+   desc:'Login, password resets, app installations and what to try when access fails.',
+   items:[
+     {q:'I cannot log in to Net Banking or the app. What do I check first?',
+      a:'Close and reopen the app or clear the browser cache. Make sure the app is updated. Check that your device date and time are set to automatic, and switch off any VPN. Most temporary login issues clear after a fresh session.'},
+     {q:'I have forgotten my password. How do I reset it?',
+      a:'On the login screen, choose Forgot Password. You will need your Customer ID or registered mobile number to start a verified reset using an OTP. Sessions on other devices are signed out for safety.'},
+     {q:'My account is showing a temporary security lock.',
+      a:'Multiple failed login attempts trigger a short automatic lock, usually 30 minutes. Wait for it to lift, then try with the correct details. If you are unsure of your password, run the reset instead of retrying.'},
+     {q:'Can I log in from any device?',
+      a:'Yes. Login works across trusted devices. New devices may need additional verification. On shared or public networks, login may be blocked for security — try a trusted connection.'},
+     {q:'How do I change my registered mobile number?',
+      a:'A mobile number change is a service request. Most updates can be done digitally with OTP verification. For high-value accounts, branch verification may be required for security.'}
+   ]},
+  {id:'verify',title:'Verification & Documents',
+   desc:'KYC, address proof, document uploads and standard verification processes.',
+   items:[
+     {q:'How do I complete re-KYC online?',
+      a:'Upload your ID and address proof from the app or NetBanking. Most updates are completed digitally and processed within standard service timelines. A branch visit is required only for high-value accounts or specific document types.'},
+     {q:'Which documents are accepted for KYC?',
+      a:'Aadhaar, passport, voter ID, driving licence and PAN are accepted. Address proof may include utility bills (within the last three months), bank statements or rental agreements. The full list is shown during the service request flow.'},
+     {q:'How long does a KYC update take to process?',
+      a:'Most KYC updates finish within standard service-request timelines, usually 2 to 4 working days from submission. You are notified at every stage of processing.'},
+     {q:'Can I add documents to a complaint after submitting?',
+      a:'Yes. From the expanded tracking view you can upload extra documents and reply directly to the team at any stage. Everything is added to the same case thread.'},
+     {q:'Are uploaded documents secure?',
+      a:'Yes. All uploads are encrypted and stored under the bank\'s grievance and data handling policies. Access is restricted to the team handling your case.'}
+   ]},
+  {id:'fraud',title:'Fraud & Unauthorized Activity',
+   desc:'Suspected fraud, blocked cards, unauthorised transactions and the dedicated specialist desk that handles them.',
+   items:[
+     {q:'I suspect an unauthorised transaction. What should I do first?',
+      a:'Block the affected card or freeze the account immediately, then report through the Fraud and Blocked Card desk. The desk runs 24×7, outside the standard queue, and a specialist takes over within minutes.'},
+     {q:'How quickly is fraud handled compared to a regular complaint?',
+      a:'Fraud and blocked-card cases skip the standard queue entirely. A dedicated 24×7 desk takes over within minutes. These cases are time-sensitive and treated as priority from the start.'},
+     {q:'What evidence helps a fraud case?',
+      a:'Screenshots, SMS alerts, transaction references and any communication with the suspected fraudster all help. The more specific the timestamps and reference numbers, the faster the case can be acted on.'},
+     {q:'Will pending transactions still go through on a blocked card?',
+      a:'Authorised pending transactions may settle. New transactions are stopped. If a pending transaction is suspicious, raise it as a dispute alongside the fraud report.'},
+     {q:'What is the National Cyber Crime Reporting Portal for?',
+      a:'For cyber-fraud, the National Cyber Crime Reporting Portal records and tracks your case at a national level alongside the bank\'s own investigation. The fraud desk usually guides you through both routes in parallel.'}
+   ]},
+  {id:'channels',title:'Support Channels',
+   desc:'WhatsApp, email, phone banking, branch, app and SMS. Which channel to use, when, and what each handles best.',
+   items:[
+     {q:'Do all support channels share the same case history?',
+      a:'Yes. Every channel shares your reference number and complaint history. You can switch between WhatsApp, email, phone, branch or the app without starting over.'},
+     {q:'Which channel is fastest for urgent issues?',
+      a:'Phone Banking is usually the fastest option for urgent issues requiring immediate verification or escalation. WhatsApp is a close second for non-voice urgency.'},
+     {q:'I have limited internet access. Which channel works?',
+      a:'SMS Banking works without internet and is useful for quick keyword-based banking actions and support updates. Phone Banking also works without data.'},
+     {q:'Which channel keeps a written record?',
+      a:'Email Support keeps a clear written trail. The Mobile App also keeps a searchable case thread for everything raised through it.'},
+     {q:'When should I visit a branch instead?',
+      a:'For original documents, KYC, identity verification or in-person assistance. Branches are also useful for cases where face-to-face explanation is easier than typing or speaking on the phone.'}
+   ]},
+  {id:'service',title:'Service Requests',
+   desc:'Cheque books, statements, address changes and other standard banking tasks that are processed rather than investigated.',
+   items:[
+     {q:'How is a service request different from a complaint?',
+      a:'A service request is a standard banking task like a cheque book or KYC update. It is processed by operations along a defined track. A complaint is an issue requiring investigation, which moves through a tracked grievance flow.'},
+     {q:'How long does a cheque book take?',
+      a:'Cheque books usually arrive within standard processing windows, typically 5 to 7 working days from request to delivery. A dispatch confirmation is sent when it leaves the branch.'},
+     {q:'Can I get an account statement on demand?',
+      a:'Yes. Statements can be downloaded from the app or NetBanking. Older or specific-format statements can be requested as a service request and delivered to your registered email.'},
+     {q:'Are priority service requests available?',
+      a:'For specific products and customer segments, yes. The service request flow indicates if a priority option applies to your account.'},
+     {q:'Can I track a service request?',
+      a:'Yes. Service requests have their own reference number and stage track. The lookup works the same as complaint tracking, with stages adjusted for processing rather than investigation.'}
+   ]}
+];
+
+/* ========= RENDERING ========= */
+function renderSide(){
+  const side=document.getElementById('repoSide');
+  side.innerHTML='<b>Categories</b>'+REPO.map(c=>
+    '<a href="#cat-'+c.id+'" data-cat="'+c.id+'" onclick="goTo(event,\''+c.id+'\')">'+
+      '<span>'+c.title+'</span><span class="count">'+c.items.length+'</span>'+
+    '</a>'
+  ).join('');
+}
+function renderCats(){
+  const el=document.getElementById('repoCats');
+  el.innerHTML='<button class="repo-cat active" data-cat="all" onclick="filterCat(this,\'all\')">All categories</button>'+
+    REPO.map(c=>'<button class="repo-cat" data-cat="'+c.id+'" onclick="filterCat(this,\''+c.id+'\')">'+c.title+'</button>').join('');
+}
+function renderMain(filter,query){
+  const main=document.getElementById('repoMain');
+  const q=(query||'').trim().toLowerCase();
+  let cats=REPO;
+  if(filter&&filter!=='all') cats=REPO.filter(c=>c.id===filter);
+
+  /* if query is set, filter items and only render categories with hits */
+  if(q){
+    cats=cats.map(c=>({
+      ...c,
+      items:c.items.filter(it=>(it.q+' '+it.a).toLowerCase().includes(q))
+    })).filter(c=>c.items.length>0);
+  }
+
+  if(!cats.length){
+    main.innerHTML='<div class="no-results">'+
+      '<b>No FAQs matched that search.</b>'+
+      '<span>Try a broader phrase, or pick a category from the side menu.</span>'+
+    '</div>';
+    setCount(0);
+    return;
+  }
+  main.innerHTML=cats.map((c,ci)=>
+    '<div class="cat-block" id="cat-'+c.id+'">'+
+      '<h2>'+c.title+' <span class="cat-num">'+String(ci+1).padStart(2,'0')+'</span></h2>'+
+      '<p class="cat-desc">'+c.desc+'</p>'+
+      c.items.map((it,i)=>
+        '<div class="faq-item" data-i="'+i+'">'+
+          '<div class="faq-q" onclick="toggleItem(this)">'+
+            '<b>'+highlight(it.q,q)+'</b>'+
+            '<span class="fq-chev"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>'+
+          '</div>'+
+          '<div class="faq-a"><div class="faq-a-in">'+highlight(it.a,q)+'</div></div>'+
+        '</div>'
+      ).join('')+
+    '</div>'
+  ).join('');
+  setCount(cats.reduce((n,c)=>n+c.items.length,0));
+}
+function highlight(text,q){
+  if(!q) return text;
+  try{
+    const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+    return text.replace(re,'<mark style="background:rgba(40,40,44,.07);color:inherit;font-weight:600;padding:0 2px;border-radius:3px;">$1</mark>');
+  }catch(e){return text;}
+}
+function setCount(n){
+  document.getElementById('rsCount').textContent=
+    n===0?'No matches':(n+' FAQ'+(n===1?'':'s'));
+}
+function toggleItem(q){
+  const item=q.parentElement;
+  const open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(it=>{
+    it.classList.remove('open');
+    it.querySelector('.faq-a').style.maxHeight='0';
+  });
+  if(!open){
+    item.classList.add('open');
+    const a=item.querySelector('.faq-a');
+    a.style.maxHeight=a.querySelector('.faq-a-in').scrollHeight+'px';
+  }
+}
+let currentFilter='all';
+function filterCat(btn,id){
+  document.querySelectorAll('.repo-cat').forEach(b=>b.classList.toggle('active',b===btn));
+  document.querySelectorAll('.repo-side a').forEach(a=>a.classList.toggle('active',a.dataset.cat===id));
+  currentFilter=id;
+  renderMain(id,document.getElementById('repoSearch').value);
+}
+function goTo(e,id){
+  e.preventDefault();
+  document.querySelectorAll('.repo-side a').forEach(a=>a.classList.toggle('active',a.dataset.cat===id));
+  document.querySelectorAll('.repo-cat').forEach(b=>b.classList.toggle('active',b.dataset.cat===id));
+  currentFilter=id;
+  renderMain(id,document.getElementById('repoSearch').value);
+  setTimeout(()=>{
+    const el=document.getElementById('cat-'+id);
+    if(el){
+      const headerH=document.querySelector('.header').getBoundingClientRect().height;
+      easedScrollTo(el.getBoundingClientRect().top+window.pageYOffset-headerH-12,640);
+    }
+  },20);
+}
+/* eased scroll — identical behavior to the support page */
+function easedScrollTo(targetY,duration){
+  const prefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(prefersReduced){ window.scrollTo(0,targetY); return; }
+  const startY=window.pageYOffset, dy=targetY-startY, dur=duration||640;
+  let t0=null;
+  function step(ts){
+    if(t0===null) t0=ts;
+    const p=Math.min((ts-t0)/dur,1);
+    const e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+    window.scrollTo(0,startY+dy*e);
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* search input + ?q= continuity from the support page CTA */
+function readQueryParam(){
+  try{
+    const u=new URL(window.location.href);
+    return (u.searchParams.get('q')||'').trim();
+  }catch(e){return '';}
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  renderSide();
+  renderCats();
+  const seed=readQueryParam();
+  const input=document.getElementById('repoSearch');
+  if(seed){
+    input.value=seed;
+    renderMain('all',seed);
+    /* gentle scroll into the results so the user lands on something useful */
+    setTimeout(()=>{
+      const first=document.querySelector('.cat-block');
+      if(first){
+        const headerH=document.querySelector('.header').getBoundingClientRect().height;
+        easedScrollTo(first.getBoundingClientRect().top+window.pageYOffset-headerH-14,640);
+      }
+      input.focus({preventScroll:true});
+    },50);
+  }else{
+    renderMain('all','');
+  }
+  input.addEventListener('input',function(){
+    renderMain(currentFilter,this.value);
+  });
+});
+</script>
+
+</body>
+</html>
