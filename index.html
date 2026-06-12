@@ -1257,6 +1257,40 @@ h1,h2,h3,h4{font-weight:600;line-height:1.2;letter-spacing:-.012em;}
   margin-top:14px;font-size:12px;color:var(--text-soft);display:flex;align-items:center;gap:8px;
   padding:12px 16px;background:var(--info-tint);border-radius:11px;border:1px solid #dcdcde;
 }
+/* ---- Accordion: inline expansion panels ---- */
+.esc-row{
+  /* already display:grid — add implicit second row for panel */
+  grid-template-rows:auto auto;
+  align-items:start;
+}
+.esc-row.open{border-color:var(--navy-soft);box-shadow:var(--shadow-sm);}
+.esc-row.open:hover{transform:none;}
+.esc-panel{
+  grid-column:1/-1;
+  max-height:0;overflow:hidden;
+  opacity:0;pointer-events:none;
+  transition:max-height .38s cubic-bezier(.4,0,.2,1),opacity .26s ease;
+}
+.esc-row.open .esc-panel{
+  max-height:3600px;
+  opacity:1;pointer-events:auto;
+  transition:max-height .44s cubic-bezier(.4,0,.2,1),opacity .3s ease;
+}
+.esc-panel-in{
+  padding-top:22px;
+  border-top:1px solid var(--border-soft);
+  margin-top:6px;
+}
+.esc-panel-note{
+  font-size:12.5px;color:var(--text-mid);line-height:1.55;
+  padding:11px 14px;background:var(--surface);border:1px solid var(--border-soft);
+  border-radius:10px;margin-bottom:18px;display:flex;align-items:flex-start;gap:9px;
+}
+.esc-panel-note svg{color:var(--text-faint);flex-shrink:0;margin-top:1px;}
+/* toggle button */
+.esc-toggle-btn{display:inline-flex;align-items:center;gap:6px;}
+.etb-chev{transition:transform .26s cubic-bezier(.4,0,.2,1);flex-shrink:0;}
+.esc-row.open .etb-chev{transform:rotate(180deg);}
 /* Escalation bottom support cards */
 .esc-bottom-cards{
   display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;
@@ -1521,15 +1555,38 @@ h1,h2,h3,h4{font-weight:600;line-height:1.2;letter-spacing:-.012em;}
 .ch-card{
   background:var(--paper);border:1px solid var(--border);border-radius:15px;
   padding:20px;transition:.2s var(--ease);
+  display:flex;flex-direction:column;
 }
 .ch-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:#cfcfcc;}
 .ch-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
 .ch-ic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;}
-.ch-card b{font-size:14.5px;display:block;margin-bottom:3px;}
-.ch-card .ch-type{font-size:12px;color:var(--text-soft);margin-bottom:14px;display:block;}
+.ch-card b{font-size:14.5px;display:block;margin-bottom:5px;}
+.ch-card .ch-type{
+  font-size:12px;color:var(--text-soft);line-height:1.5;
+  display:block;flex:0 0 auto;
+  min-height:36px; /* locks description area — divider aligns across all cards */
+}
 .ch-cta{
   display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--blue);
   padding-top:13px;border-top:1px solid var(--border-soft);
+  margin-top:auto; /* pins action row to card bottom */
+}
+.ch-nums{
+  margin-top:auto;padding-top:12px;border-top:1px solid var(--border-soft);
+  display:flex;flex-direction:row;align-items:center;gap:0;flex-wrap:wrap;
+}
+.ch-num-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13px;font-weight:700;letter-spacing:-.015em;
+  color:var(--text);text-decoration:none;transition:color .13s;
+  white-space:nowrap;
+}
+.ch-num-link:hover{color:var(--navy);}
+.ch-num-link svg{color:var(--text-soft);flex-shrink:0;transition:color .13s;}
+.ch-num-link:hover svg{color:var(--navy);}
+.ch-num-sep{
+  width:1px;height:14px;background:var(--border);
+  margin:0 10px;flex-shrink:0;
 }
 
 /* ============ SPECIALIZED SUPPORT ============ */
@@ -1957,20 +2014,7 @@ h1,h2,h3,h4{font-weight:600;line-height:1.2;letter-spacing:-.012em;}
     <div class="hdr-top-in">
       <!-- HDFC BANK logo — left -->
       <a href="#top" class="hdr-top-logo" style="display:flex;align-items:center;flex-shrink:0;text-decoration:none;">
-        <svg width="110" height="28" viewBox="0 0 220 56" xmlns="http://www.w3.org/2000/svg">
-          <!-- outer white border rect -->
-          <rect x="1" y="1" width="218" height="54" rx="3" ry="3" fill="none" stroke="#fff" stroke-width="2"/>
-          <!-- red square icon background -->
-          <rect x="8" y="8" width="40" height="40" rx="2" fill="#e31837"/>
-          <!-- white outer square ring -->
-          <rect x="11" y="11" width="34" height="34" rx="1" fill="none" stroke="#fff" stroke-width="5"/>
-          <!-- white inner square -->
-          <rect x="20" y="20" width="16" height="16" rx="1" fill="#fff"/>
-          <!-- inner red cutout -->
-          <rect x="24" y="24" width="8" height="8" fill="#e31837"/>
-          <!-- HDFC BANK text -->
-          <text x="56" y="38" font-family="Arial, sans-serif" font-size="22" font-weight="900" fill="#fff" letter-spacing="1">HDFC BANK</text>
-        </svg>
+        <img src="data:image/png;base64,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" alt="HDFC Bank" height="28" style="display:block;">
       </a>
       <div class="hdr-top-center">
         <button class="hdr-banking-pill">
@@ -2688,34 +2732,261 @@ h1,h2,h3,h4{font-weight:600;line-height:1.2;letter-spacing:-.012em;}
       <p class="sec-sub">Please allow each support level time to review and respond before escalating further. Your complaint history stays linked throughout the process.</p>
     </div>
     <div class="esc-list reveal">
-      <div class="esc-row" data-lvl="1">
+
+      <!-- ROW 1: Customer Care & Branch -->
+      <div class="esc-row" data-lvl="1" id="escRow1">
         <div class="esc-lvl">1</div>
         <div class="esc-role"><b>Customer Care &amp; Branch</b><span>First point of contact</span></div>
         <div class="esc-desc">Raise and track complaints through Raise An Issue or visit your home branch for everyday banking concerns.</div>
         <div class="esc-time"><span class="et-label">Allow us</span><span class="et-val">3–5 working days</span></div>
-        <button class="btn btn-ghost btn-sm" onclick="openEscModal('esc1Overlay')">Know More</button>
+        <button class="btn btn-ghost btn-sm esc-toggle-btn" onclick="toggleEscPanel(1)">
+          <span class="etb-label">Know More</span>
+          <svg class="etb-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="esc-panel" id="escPanel1">
+          <div class="esc-panel-in">
+            <div class="esc-l1-grid">
+              <div class="esc-l1-card">
+                <div class="esc-l1-top">
+                  <div class="esc-l1-ic" style="background:#e8f4ee;color:#2e7050;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.2-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg>
+                  </div>
+                  <span class="esc-l1-badge green"><span class="dot"></span>24x7</span>
+                </div>
+                <h4>Chat Support</h4>
+                <div class="sub">via WhatsApp messaging</div>
+                <a class="esc-l1-btn" href="https://wa.me/918001600110" target="_blank">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 3h6v6M21 3l-9 9M10 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6"/></svg>
+                  Open chat
+                </a>
+              </div>
+              <div class="esc-l1-card">
+                <div class="esc-l1-top">
+                  <div class="esc-l1-ic" style="background:#eaf0f8;color:#2a4a80;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 13h.01M9 17h.01"/></svg>
+                  </div>
+                  <span class="esc-l1-badge amber"><span class="dot"></span>10AM - 5PM</span>
+                </div>
+                <h4>Branch Support</h4>
+                <div class="sub">In person assistance</div>
+                <a class="esc-l1-btn" href="https://www.hdfcbank.com/content/bbp/repositories/723fb80a-2dde-42a3-9793-7ae1be57c87f/?folderPath=/footer/locator/&fileName=locator.html" target="_blank">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Locate Now
+                </a>
+              </div>
+              <div class="esc-l1-card">
+                <div class="esc-l1-top">
+                  <div class="esc-l1-ic" style="background:#fdf0e8;color:#8a4020;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>
+                  </div>
+                  <span class="esc-l1-badge amber"><span class="dot"></span>8AM - 8PM</span>
+                </div>
+                <h4>Call Support</h4>
+                <div class="sub">Speak to the Support team</div>
+                <a class="esc-l1-btn" href="tel:18002626161">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 16.92v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.67A2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  Call Now
+                </a>
+              </div>
+              <div class="esc-l1-card">
+                <div class="esc-l1-top">
+                  <div class="esc-l1-ic" style="background:#eaf0f8;color:#2a4a80;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg>
+                  </div>
+                  <span class="esc-l1-badge green"><span class="dot"></span>24-48 hrs</span>
+                </div>
+                <h4>Email Support</h4>
+                <div class="sub">Written support via email</div>
+                <a class="esc-l1-btn" href="mailto:support@hdfcbank.com">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg>
+                  Write Email
+                </a>
+              </div>
+            </div>
+            <div class="esc-l1-secondary">
+              <div class="esc-l1-sec-label">Specialised Support &amp; Reporting</div>
+              <div class="esc-l1-mini-grid">
+                <div class="esc-l1-mini-card" onclick="switchTab('fraud');scrollToId('workspace');">
+                  <div class="esc-l1-mini-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.4 8.7-8 10-4.6-1.3-8-5-8-10V6z"/><path d="M12 8v4M12 16h.01"/></svg></div>
+                  <div class="esc-l1-mini-tx"><b>Fraud &amp; Dispute Reporting</b><span>Report unauthorised transactions.</span></div>
+                  <svg class="esc-l1-mini-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+                <div class="esc-l1-mini-card" onclick="scrollToId('workspace');">
+                  <div class="esc-l1-mini-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></div>
+                  <div class="esc-l1-mini-tx"><b>Raise an Issue</b><span>Complaints, queries and feedback.</span></div>
+                  <svg class="esc-l1-mini-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+                <div class="esc-l1-mini-card" onclick="scrollToId('specialized');">
+                  <div class="esc-l1-mini-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4zM5 21a7 7 0 0 1 14 0"/></svg></div>
+                  <div class="esc-l1-mini-tx"><b>Conduct &amp; Mis-selling Concerns</b><span>Staff conduct and mis-selling concerns.</span></div>
+                  <svg class="esc-l1-mini-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+                <div class="esc-l1-mini-card" onclick="openEscModal('dematOverlay');">
+                  <div class="esc-l1-mini-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg></div>
+                  <div class="esc-l1-mini-tx"><b>Demat &amp; Securities Grievance</b><span>Demat and securities matters.</span></div>
+                  <svg class="esc-l1-mini-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+                <div class="esc-l1-mini-card" onclick="window.open('https://cybercrime.gov.in','_blank');">
+                  <div class="esc-l1-mini-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg></div>
+                  <div class="esc-l1-mini-tx"><b>Cyber Crime Reporting Portal</b><span>Report cyber fraud incidents.</span></div>
+                  <svg class="esc-l1-mini-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+                <div class="esc-l1-mini-card" onclick="openEscModal('utxOverlay');">
+                  <div class="esc-l1-mini-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h.01"/></svg></div>
+                  <div class="esc-l1-mini-tx"><b>Block Cards &amp; Report Unauthorised Transactions</b><span>Emergency blocking and reporting guide.</span></div>
+                  <svg class="esc-l1-mini-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="esc-modal-footer" style="margin-top:18px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+              Please allow 3 to 5 working days for review and resolution before proceeding to the next escalation level.
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="esc-row" data-lvl="2">
+
+      <!-- ROW 2: Grievance Redressal Officer -->
+      <div class="esc-row" data-lvl="2" id="escRow2">
         <div class="esc-lvl">2</div>
         <div class="esc-role"><b>Grievance Redressal Officer</b><span>Level 2 · Regional authority</span></div>
         <div class="esc-desc">If your complaint remains unresolved, contact the Grievance Officer after allowing the first level time to respond.</div>
         <div class="esc-time"><span class="et-label">Allow us</span><span class="et-val">10 working days</span></div>
-        <button class="btn btn-ghost btn-sm" onclick="openEscModal('esc2Overlay')">Know More</button>
+        <button class="btn btn-ghost btn-sm esc-toggle-btn" onclick="toggleEscPanel(2)">
+          <span class="etb-label">Know More</span>
+          <svg class="etb-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="esc-panel" id="escPanel2">
+          <div class="esc-panel-in">
+            <div class="esc-panel-note">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+              Contact our Grievance Redressal Officer with your previous complaint reference number. Please allow up to 10 working days for resolution.
+            </div>
+            <div class="esc-l2-grid">
+              <div class="esc-l2-card">
+                <div class="esc-l2-cat">Banking Products and Depository Services</div>
+                <div class="esc-l2-officer">Mr. Mehernosh Dhamodiwala<span>Grievance Redressal Officer</span></div>
+                <div class="esc-l2-contact">
+                  <div class="esc-l2-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Grievance Redressal Cell, HDFC Bank Limited, 1st Floor, Empire Plaza - 1, LBS Marg, Chandan Nagar, Vikhroli West, Mumbai - 400083</div>
+                  <div class="esc-l2-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.67A2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:18002664060">1800 266 4060</a></div>
+                  <div class="esc-l2-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg><a href="mailto:grievance.redressaldl@hdfc.bank.in">grievance.redressaldl@hdfc.bank.in</a></div>
+                </div>
+                <div class="esc-l2-avail">
+                  <div class="esc-l2-av-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Monday to Saturday, 9:30am to 5:30pm</div>
+                  <div class="esc-l2-av-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Not available on 2nd &amp; 4th Saturdays, Sundays and Bank Holidays</div>
+                </div>
+              </div>
+              <div class="esc-l2-card">
+                <div class="esc-l2-cat">Digital Lending Specific Complaints</div>
+                <div class="esc-l2-officer">Ms. Shalini Tandon<span>Grievance Redressal Officer</span></div>
+                <div class="esc-l2-contact">
+                  <div class="esc-l2-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Grievance Redressal Cell, HDFC Bank Limited, 1st Floor, Empire Plaza - 1, LBS Marg, Chandan Nagar, Vikhroli West, Mumbai - 400083</div>
+                  <div class="esc-l2-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.67A2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:18002664060">1800 266 4060</a></div>
+                  <div class="esc-l2-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg><a href="mailto:grievance.redressaldl@hdfc.bank.in">grievance.redressaldl@hdfc.bank.in</a></div>
+                </div>
+                <div class="esc-l2-avail">
+                  <div class="esc-l2-av-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Monday to Saturday, 9:30am to 5:30pm</div>
+                  <div class="esc-l2-av-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Not available on 2nd &amp; 4th Saturdays, Sundays and Bank Holidays</div>
+                </div>
+              </div>
+              <div class="esc-l2-card">
+                <div class="esc-l2-cat">Credit Card Specific Complaints</div>
+                <div class="esc-l2-officer">Mr. Shanmugasundar R<span>Grievance Redressal Officer</span></div>
+                <div class="esc-l2-contact">
+                  <div class="esc-l2-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>HDFC Bank Cards Division, Door No. 94 SP, Estate Bus Stand, Wavin Main Road, Mogappair West, Chennai - 600058</div>
+                  <div class="esc-l2-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.67A2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:04461084900">044-61084900</a></div>
+                  <div class="esc-l2-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg><a href="mailto:grievance.redressalcc@hdfc.bank.in">grievance.redressalcc@hdfc.bank.in</a></div>
+                </div>
+                <div class="esc-l2-avail">
+                  <div class="esc-l2-av-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Monday to Saturday, 9:30am to 5:30pm</div>
+                  <div class="esc-l2-av-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Not available on 2nd &amp; 4th Saturdays, Sundays and Bank Holidays</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="esc-row" data-lvl="3">
+
+      <!-- ROW 3: Principal Nodal Officer -->
+      <div class="esc-row" data-lvl="3" id="escRow3">
         <div class="esc-lvl">3</div>
         <div class="esc-role"><b>Principal Nodal Officer</b><span>Level 3 · Senior authority</span></div>
         <div class="esc-desc">If the resolution at Level 2 does not meet your expectations, the Principal Nodal Officer reviews the matter further.</div>
         <div class="esc-time"><span class="et-label">Allow us</span><span class="et-val">10 working days</span></div>
-        <button class="btn btn-ghost btn-sm" onclick="openEscModal('esc3Overlay')">Know More</button>
+        <button class="btn btn-ghost btn-sm esc-toggle-btn" onclick="toggleEscPanel(3)">
+          <span class="etb-label">Know More</span>
+          <svg class="etb-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="esc-panel" id="escPanel3">
+          <div class="esc-panel-in">
+            <div class="esc-panel-note">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+              If the resolution at Step 2 does not meet your expectation, contact our Principal Nodal Officer through any of the channels below. Please allow up to 10 working days to resolve your complaint or query.
+            </div>
+            <div class="esc-l3-grid">
+              <div class="esc-l3-card">
+                <div class="esc-l3-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg></div>
+                <h4>Email Nodal Officer</h4>
+                <div class="sub">Send your complaint with your reference number and supporting documents.</div>
+                <a href="mailto:nodal.officer@hdfc.bank.in" class="btn btn-navy btn-sm">Email Now</a>
+              </div>
+              <div class="esc-l3-card">
+                <div class="esc-l3-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.67A2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+                <h4>Call Nodal Officer</h4>
+                <div class="sub">Speak directly with the Nodal Officer team about your unresolved concern.</div>
+                <a href="tel:02262841505" class="btn btn-navy btn-sm">Call Now</a>
+              </div>
+              <div class="esc-l3-card esc-l3-detail-card">
+                <div class="esc-l3-name">Mr. Ripal Kirtikumar Sheth</div>
+                <div class="esc-l3-title">Principal Nodal Officer, HDFC Bank Ltd.</div>
+                <div class="esc-l3-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>HDFC Bank Ltd., 5th Floor, Tower B, Peninsula Business Park, Lower Parel West, Mumbai 400013</div>
+                <div class="esc-l3-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.67A2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:02262841505">022 62841505</a></div>
+                <div class="esc-l3-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg><a href="mailto:nodal.officer@hdfc.bank.in">nodal.officer@hdfc.bank.in</a></div>
+                <a href="mailto:nodal.officer@hdfc.bank.in" class="btn btn-ghost btn-sm" style="margin-top:6px;">Email Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="esc-row" data-lvl="4">
+
+      <!-- ROW 4: RBI Ombudsman -->
+      <div class="esc-row" data-lvl="4" id="escRow4">
         <div class="esc-lvl">4</div>
         <div class="esc-role"><b>RBI Ombudsman</b><span>External · Regulatory authority</span></div>
         <div class="esc-desc">Independent regulatory redressal under the RBI Integrated Ombudsman Scheme, free of cost to customers.</div>
         <div class="esc-time"><span class="et-label">Eligible for</span><span class="et-val">30 days of complaint</span></div>
-        <button class="btn btn-ghost btn-sm" onclick="openEscModal('esc4Overlay')">Know More</button>
+        <button class="btn btn-ghost btn-sm esc-toggle-btn" onclick="toggleEscPanel(4)">
+          <span class="etb-label">Know More</span>
+          <svg class="etb-chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="esc-panel" id="escPanel4">
+          <div class="esc-panel-in">
+            <div class="esc-panel-note">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+              If after following Steps 1, 2 and 3 your issue remains unresolved, or if you have not received a response within 30 days of lodging a complaint, you may approach the Reserve Bank Integrated Ombudsman.
+            </div>
+            <div class="esc-l4-grid">
+              <div class="esc-l4-tile">
+                <div class="esc-l4-tile-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+                <div class="esc-l4-tile-body"><div class="esc-l4-tile-label">Complaint lodging portal of the Ombudsman</div><a href="https://cms.rbi.org.in" target="_blank" class="esc-l4-btn">RBI Portal <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+              </div>
+              <div class="esc-l4-tile">
+                <div class="esc-l4-tile-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.67A2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+                <div class="esc-l4-tile-body"><div class="esc-l4-tile-label">Toll-free number: 14448</div><a href="tel:14448" class="esc-l4-btn">Call Now <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+              </div>
+              <div class="esc-l4-tile">
+                <div class="esc-l4-tile-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg></div>
+                <div class="esc-l4-tile-body"><div class="esc-l4-tile-label">Contact Integrated Banking Ombudsman</div><a href="mailto:cms@rbi.org.in" class="esc-l4-btn">Write to us <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+              </div>
+              <div class="esc-l4-tile">
+                <div class="esc-l4-tile-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                <div class="esc-l4-tile-body"><div class="esc-l4-tile-label">Analysis of complaints for FY 2024-25</div><a href="https://www.rbi.org.in/Scripts/AnnualReportPublications.aspx" target="_blank" class="esc-l4-btn">Click here <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
 
     <!-- Bottom support cards -->
@@ -2848,7 +3119,7 @@ h1,h2,h3,h4{font-weight:600;line-height:1.2;letter-spacing:-.012em;}
           <span class="chip chip-green"><span class="chip-dot"></span> 24×7</span>
         </div>
         <b>WhatsApp</b>
-        <span class="ch-type">Instant messaging</span>
+        <span class="ch-type">Chat with us on <span style="font-weight:700;color:var(--text)">70700 22222</span></span>
         <a class="ch-cta">Open chat <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <!-- 2. Branch Support -->
@@ -2868,8 +3139,12 @@ h1,h2,h3,h4{font-weight:600;line-height:1.2;letter-spacing:-.012em;}
           <span class="chip chip-amber"><span class="chip-dot"></span> 8AM–8PM</span>
         </div>
         <b>Phone Banking</b>
-        <span class="ch-type">Speak to Support team</span>
-        <a class="ch-cta">Call now <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <span class="ch-type">Call Customer Support</span>
+        <div class="ch-nums">
+          <a href="tel:18001600" class="ch-num-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>1800 1600</a>
+          <span class="ch-num-sep"></span>
+          <a href="tel:18002600" class="ch-num-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>1800 2600</a>
+        </div>
       </div>
       <!-- 4. SMS Banking -->
       <div class="ch-card">
@@ -2878,8 +3153,8 @@ h1,h2,h3,h4{font-weight:600;line-height:1.2;letter-spacing:-.012em;}
           <span class="chip chip-green"><span class="chip-dot"></span> 24×7</span>
         </div>
         <b>SMS Banking</b>
-        <span class="ch-type">Chat with us</span>
-        <a class="ch-cta">Start text chain <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <span class="ch-type">Chat with us on <span style="font-weight:700;color:var(--text)">9901234567</span></span>
+        <a class="ch-cta">Text Now <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <!-- 5. Email -->
       <div class="ch-card">
@@ -2887,9 +3162,9 @@ h1,h2,h3,h4{font-weight:600;line-height:1.2;letter-spacing:-.012em;}
           <div class="ch-ic" style="background:var(--cream-deep);color:var(--navy-soft);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg></div>
           <span class="chip chip-blue"><span class="chip-dot"></span> 24 hrs</span>
         </div>
-        <b>Email</b>
-        <span class="ch-type">Detailed updates</span>
-        <a class="ch-cta">Send email <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <b>Email &amp; Postal Address</b>
+        <span class="ch-type">Support &amp; correspondence.</span>
+        <a class="ch-cta" href="https://www.hdfc.bank.in/contact-us/write-to-us?icid=website_organic_listiconcards_writetous:link:ouraddressemailids" target="_blank">Write to Us <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <!-- 6. Mobile Banking -->
       <div class="ch-card">
@@ -3093,6 +3368,7 @@ h1,h2,h3,h4{font-weight:600;line-height:1.2;letter-spacing:-.012em;}
       <div class="foot-col-new">
         <h5>Contact Us &amp; Need Help</h5>
         <a onclick="scrollToId('workspace')">Lodge a Complaint/Query/Request</a>
+        <a href="contact-us.html">Contact Us</a>
         <a href="faq-repository.html">FAQs</a>
         <a href="tel:18002586161">Customer Care</a>
         <a>Active Channel Partners</a>
@@ -4158,7 +4434,7 @@ document.addEventListener('keydown',e=>{
     if(chip&&chip.classList.contains('show')) chip.classList.remove('show');
   }
 });
-/* ========= ESCALATION MODALS ========= */
+/* ========= ESCALATION MODALS (DEMAT / UTX / LEA only) ========= */
 function openEscModal(id){
   const el=document.getElementById(id);
   if(el){el.classList.add('show');document.body.style.overflow='hidden';}
@@ -4168,20 +4444,39 @@ function closeEscModal(e,id){
   const el=document.getElementById(id);
   if(el){el.classList.remove('show');document.body.style.overflow='';}
 }
+/* ========= ESCALATION ACCORDION (Levels 1–4) ========= */
+function toggleEscPanel(lvl){
+  const opening=!document.getElementById('escRow'+lvl).classList.contains('open');
+  [1,2,3,4].forEach(l=>{
+    const row=document.getElementById('escRow'+l);
+    if(!row)return;
+    const isTarget=(l===lvl);
+    const shouldOpen=isTarget&&opening;
+    row.classList.toggle('open',shouldOpen);
+    const lbl=row.querySelector('.etb-label');
+    if(lbl)lbl.textContent=shouldOpen?'Hide Details':'Know More';
+  });
+  if(opening){
+    // scroll row into view with a short delay for the animation to start
+    setTimeout(()=>{
+      const row=document.getElementById('escRow'+lvl);
+      if(row){row.scrollIntoView({behavior:'smooth',block:'nearest'});}
+    },60);
+  }
+}
 function leaEmail(){
   const email='lea.desk@hdfc.bank.in';
   const mailto='mailto:'+email+'?subject=LEA%20Liaison%20Desk%20Inquiry';
-  // Try to open mail client; if nothing happens in 800ms show fallback sheet
   const before=Date.now();
   window.location.href=mailto;
   setTimeout(()=>{
     if(Date.now()-before<1500){openEscModal('leaOverlay');}
   },800);
 }
-/* close escalation modals on Escape */
+/* Escape: close any open modal OR collapse any open accordion panel */
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){
-    ['esc1Overlay','esc2Overlay','esc3Overlay','esc4Overlay','dematOverlay','leaOverlay'].forEach(id=>{
+    ['dematOverlay','leaOverlay','utxOverlay'].forEach(id=>{
       const el=document.getElementById(id);
       if(el&&el.classList.contains('show')){el.classList.remove('show');document.body.style.overflow='';}
     });
